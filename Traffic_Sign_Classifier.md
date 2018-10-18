@@ -1,63 +1,7 @@
 
 # Self-Driving Car Engineer Nanodegree
 
-## Deep Learning
-
-## Project: Build a Traffic Sign Recognition Classifier
-
-In this notebook, a template is provided for you to implement your functionality in stages, which is required to successfully complete this project. If additional code is required that cannot be included in the notebook, be sure that the Python code is successfully imported and included in your submission if necessary. 
-
-> **Note**: Once you have completed all of the code implementations, you need to finalize your work by exporting the iPython Notebook as an HTML document. Before exporting the notebook to html, all of the code cells need to have been run so that reviewers can see the final implementation and output. You can then export the notebook by using the menu above and navigating to  \n",
-    "**File -> Download as -> HTML (.html)**. Include the finished document along with this notebook as your submission. 
-
-In addition to implementing code, there is a writeup to complete. The writeup should be completed in a separate file, which can be either a markdown file or a pdf document. There is a [write up template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) that can be used to guide the writing process. Completing the code template and writeup template will cover all of the [rubric points](https://review.udacity.com/#!/rubrics/481/view) for this project.
-
-The [rubric](https://review.udacity.com/#!/rubrics/481/view) contains "Stand Out Suggestions" for enhancing the project beyond the minimum requirements. The stand out suggestions are optional. If you decide to pursue the "stand out suggestions", you can include the code in this Ipython notebook and also discuss the results in the writeup file.
-
-
->**Note:** Code and Markdown cells can be executed using the **Shift + Enter** keyboard shortcut. In addition, Markdown cells can be edited by typically double-clicking the cell to enter edit mode.
-
----
-## Step 0: Load The Data
-
-
-```python
-# Load pickled data
-import pickle
-import numpy as np
-
-# TODO: Fill this in based on where you saved the training and testing data
-training_file = "train.p"
-validation_file= "valid.p"
-testing_file = "test.p"
-
-with open(training_file, mode='rb') as f:
-    train = pickle.load(f)
-with open(validation_file, mode='rb') as f:
-    valid = pickle.load(f)
-with open(testing_file, mode='rb') as f:
-    test = pickle.load(f)
-    
-X_train, y_train = train['features'], train['labels']
-X_valid, y_valid = valid['features'], valid['labels']
-X_test, y_test = test['features'], test['labels']
-```
-
----
-
-## Step 1: Dataset Summary & Exploration
-
-The pickled data is a dictionary with 4 key/value pairs:
-
-- `'features'` is a 4D array containing raw pixel data of the traffic sign images, (num examples, width, height, channels).
-- `'labels'` is a 1D array containing the label/class id of the traffic sign. The file `signnames.csv` contains id -> name mappings for each id.
-- `'sizes'` is a list containing tuples, (width, height) representing the original width and height the image.
-- `'coords'` is a list containing tuples, (x1, y1, x2, y2) representing coordinates of a bounding box around the sign in the image. **THESE COORDINATES ASSUME THE ORIGINAL IMAGE. THE PICKLED DATA CONTAINS RESIZED VERSIONS (32 by 32) OF THESE IMAGES**
-
-Complete the basic data summary below. Use python, numpy and/or pandas methods to calculate the data summary rather than hard coding the results. For example, the [pandas shape method](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.shape.html) might be useful for calculating some of the summary results. 
-
-### Provide a Basic Summary of the Data Set Using Python, Numpy and/or Pandas
-
+## Dataset Summary & Exploration
 
 ```python
 ### Replace each question mark with the appropriate value. 
@@ -90,50 +34,6 @@ print("Number of classes =", n_classes)
     Number of testing images = 12630
     Image data shape = (32, 32, 3)
     Number of classes = 43
-
-
-### Include an exploratory visualization of the dataset
-
-Visualize the German Traffic Signs Dataset using the pickled file(s). This is open ended, suggestions include: plotting traffic sign images, plotting the count of each sign, etc. 
-
-The [Matplotlib](http://matplotlib.org/) [examples](http://matplotlib.org/examples/index.html) and [gallery](http://matplotlib.org/gallery.html) pages are a great resource for doing visualizations in Python.
-
-**NOTE:** It's recommended you start with something simple first. If you wish to do more, come back to it after you've completed the rest of the sections. It can be interesting to look at the distribution of classes in the training, validation and test set. Is the distribution the same? Are there more examples of some classes than others?
-
-
-```python
-### Data exploration visualization code goes here.
-### Feel free to use as many code cells as needed.
-import matplotlib.pyplot as plt
-%matplotlib inline
-
-def show_images(X, end, total, images_per_row = 30, images_per_col = 15,
-                H = 20, W = 1, its_gray = False):    
-    number_of_images = images_per_row * images_per_col
-    figure, axis = plt.subplots(images_per_col, images_per_row, figsize=(H, W))
-    figure.subplots_adjust(hspace = .2, wspace=.001)
-    axis = axis.ravel()
-    
-    for i in range(number_of_images):
-        index = np.random.randint(end - total, end - 1)
-        image = X[index]
-        axis[i].axis('off')
-        if its_gray:
-          axis[i].imshow(image.reshape(32, 32), cmap='gray')
-        else:
-          axis[i].imshow(image)
-        
-```
-
-
-```python
-show_images(X_train, len(X_train), len(X_train), 
-            images_per_row = 20, images_per_col = 5, 
-            H = 32, W = 10)
-```
-
-
-![png](output_9_0.png)
 
 
 ### Data Set Summary
